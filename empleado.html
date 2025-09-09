@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleado - Punto de Venta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            max-width: 1400px;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+        
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        
+        .order-header {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            font-weight: bold;
+        }
+        
+        .order-item {
+            border-bottom: 1px solid #ecf0f1;
+            padding: 15px 20px;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .ingredient-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 8px;
+        }
+        
+        .payment-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .payment-input {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .change-display {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .stats-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stats-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .btn-process {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-process:hover {
+            background: linear-gradient(45deg, #c0392b, #e74c3c);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .btn-complete {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            width: 100%;
+        }
+        
+        .btn-complete:hover {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .pending-orders {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .current-order {
+            border: 3px solid #3498db;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px 20px;
+        }
+        
+        .nav-tabs .nav-link {
+            border-radius: 15px 15px 0 0;
+            border: none;
+            background: #ecf0f1;
+            color: #2c3e50;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="main-container">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-cash-register"></i> Panel del Empleado</h1>
+                <p class="mb-0">Gestiona pedidos y procesa pagos</p>
+            </div>
+            
+            <div class="p-4">
+                <!-- Tabs -->
+                <ul class="nav nav-tabs mb-4" id="mainTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="orders-tab" data-bs-toggle="tab" href="#orders">
+                            <i class="fas fa-shopping-bag"></i> Pedidos Pendientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="stats-tab" data-bs-toggle="tab" href="#stats">
+                            <i class="fas fa-chart-bar"></i> Estadísticas
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="tab-content">
+                    <!-- Tab Pedidos -->
+                    <div class="tab-pane fade show active" id="orders">
+                        <div class="row">
+                            <!-- Pedidos Pendientes -->
+                            <div class="col-lg-6">
+                                <h3><i class="fas fa-clock"></i> Pedidos Pendientes</h3>
+                                <div class="pending-orders" id="pendingOrders">
+                                    <div class="loading">
+                                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                                        <p>Cargando pedidos...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Procesamiento de Pago -->
+                            <div class="col-lg-6">
+                                <h3><i class="fas fa-calculator"></i> Procesamiento de Pago</h3>
+                                <div id="paymentSection" style="display: none;">
+                                    <div class="order-card current-order">
+                                        <div class="order-header">
+                                            <h5 class="mb-0">Pedido #<span id="currentOrderId"></span></h5>
+                                            <small>Procesando pago...</small>
+                                        </div>
+                                        <div id="currentOrderDetails"></div>
+                                    </div>
+                                    
+                                    <div class="payment-section">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5><i class="fas fa-dollar-sign"></i> Total a Pagar</h5>
+                                                <div class="alert alert-info text-center">
+                                                    <h3 class="mb-0">$<span id="totalAmount">0.00</span></h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5><i class="fas fa-money-bill"></i> Pago Recibido</h5>
+                                                <input type="number" class="form-control payment-input" 
+                                                       id="paymentReceived" placeholder="0.00" step="0.01" min="0">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="change-display" id="changeDisplay" style="display: none;">
+                                            <i class="fas fa-coins"></i> Cambio a dar: $<span id="changeAmount">0.00</span>
+                                        </div>
+                                        
+                                        <button class="btn btn-complete" id="completeOrderBtn" disabled>
+                                            <i class="fas fa-check-circle"></i> Completar Venta
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div id="noOrderSelected" class="empty-state">
+                                    <i class="fas fa-hand-pointer fa-3x mb-3"></i>
+                                    <h5>Selecciona un pedido para procesar</h5>
+                                    <p class="text-muted">Los pedidos aparecerán en la lista de la izquierda</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab Estadísticas -->
+                    <div class="tab-pane fade" id="stats">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-value" id="todayEarnings">$0.00</div>
+                                    <div class="stats-label">Ganancia del Día</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-value" id="todayOrders">0</div>
+                                    <div class="stats-label">Pedidos del Día</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-value" id="weeklyEarnings">$0.00</div>
+                                    <div class="stats-label">Ganancia Semanal</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-value" id="monthlyEarnings">$0.00</div>
+                                    <div class="stats-label">Ganancia Mensual</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h3><i class="fas fa-history"></i> Últimas Ventas</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="recentSalesTable">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Fecha</th>
+                                                <th>Total</th>
+                                                <th>Pago</th>
+                                                <th>Cambio</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles de venta -->
+    <div class="modal fade" id="saleDetailModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detalle de la Venta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="saleDetailContent">
+            <!-- Aquí se mostrarán los productos -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        let currentOrder = null;
+        let refreshInterval = null;
+        let productos = [];
+let ingredientes = [];
+
+        
+        // Inicializar la aplicación
+        $(document).ready(function() {
+            loadPendingOrders();
+            loadStats();
+            setupEventListeners();
+            
+            // Refrescar pedidos cada 10 segundos
+            refreshInterval = setInterval(loadPendingOrders, 10000);
+            
+            // Verificar si hay un pedido específico en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const pedidoId = urlParams.get('pedido');
+            if (pedidoId) {
+                setTimeout(() => selectOrder(pedidoId), 1000);
+            }
+            
+            // Cargar productos y ingredientes al iniciar
+            $.get('api/api_productos.php', function(data) {
+                productos = data;
+            });
+            $.get('api/api_ingredientes.php', function(data) {
+                ingredientes = data;
+            });
+        });
+        
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Input de pago recibido
+            $('#paymentReceived').on('input', calculateChange);
+            
+            // Botón completar orden
+            $('#completeOrderBtn').click(completeOrder);
+            
+            // Tab change
+            $('#stats-tab').on('shown.bs.tab', function() {
+                loadStats();
+            });
+        }
+        
+        // Cargar pedidos pendientes
+        function loadPendingOrders() {
+            $('.loading').show();
+            
+            $.ajax({
+                url: 'api/api_pedidos.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(orders) {
+                    displayPendingOrders(orders);
+                    $('.loading').hide();
+                },
+                error: function() {
+                    $('.loading').hide();
+                    $('#pendingOrders').html('<div class="alert alert-danger">Error al cargar pedidos</div>');
+                }
+            });
+        }
+        
+        // Mostrar pedidos pendientes
+        function displayPendingOrders(orders) {
+            if (orders.length === 0) {
+                $('#pendingOrders').html(`
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle fa-3x mb-3 text-success"></i>
+                        <h5>No hay pedidos pendientes</h5>
+                        <p class="text-muted">¡Excelente trabajo!</p>
+                    </div>
+                `);
+                return;
+            }
+            
+            let html = '';
+            orders.forEach(function(order) {
+                const date = new Date(order.fecha_creacion).toLocaleString('es-ES');
+                
+                html += `
+                    <div class="order-card" data-order-id="${order.id}">
+                        <div class="order-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Pedido #${order.id}</h6>
+                                <small>${date}</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="h5 mb-0">${parseFloat(order.total).toFixed(2)}</div>
+                                <button class="btn btn-sm btn-process mt-1" onclick="selectOrder(${order.id})">
+                                    <i class="fas fa-arrow-right"></i> Procesar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            $('#pendingOrders').html(html);
+        }
+        
+        // Seleccionar pedido para procesar
+        function selectOrder(orderId) {
+            $.ajax({
+                url: 'api/api_pedidos.php?id=' + orderId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(order) {
+                    currentOrder = order;
+                    displayOrderForPayment(order);
+                },
+                error: function() {
+                    showNotification('Error al cargar el pedido', 'error');
+                }
+            });
+        }
+        
+        function getProductName(productId) {
+            const prod = productos.find(p => p.id == productId);
+            return prod ? prod.nombre : 'Producto #' + productId;
+        }
+        
+        function getIngredientName(ingredientId) {
+            const ing = ingredientes.find(i => i.id == ingredientId);
+            return ing ? ing.nombre : 'Ingrediente #' + ingredientId;
+        }
+        
+        // Mostrar pedido para pago
+        function displayOrderForPayment(order) {
+            $('#currentOrderId').text(order.id);
+            $('#totalAmount').text(parseFloat(order.total).toFixed(2));
+            // Mostrar detalles del pedido
+            let detailsHtml = '';
+            order.datos_pedido.items.forEach(function(item) {
+                let ingredientsHtml = '';
+                if (item.ingredients && item.ingredients.length > 0) {
+                    // Obtener nombres de ingredientes
+                    const ingredientNames = item.ingredients.map(id => getIngredientName(id)).filter(name => name);
+                    if (ingredientNames.length > 0) {
+                        ingredientsHtml = `
+                            <div class="ingredient-list">
+                                <small><i class="fas fa-plus"></i> <strong>Extras:</strong> ${ingredientNames.join(', ')}</small>
+                            </div>
+                        `;
+                    }
+                }
+                detailsHtml += `
+                    <div class="order-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">${getProductName(item.product_id)}</h6>
+                                <small class="text-muted">Cantidad: ${item.quantity}</small>
+                                ${ingredientsHtml}
+                            </div>
+                            <div class="text-end">
+                                <strong>${parseFloat(item.total_price).toFixed(2)}</strong>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#currentOrderDetails').html(detailsHtml);
+            // Mostrar sección de pago y ocultar mensaje
+            $('#paymentSection').show();
+            $('#noOrderSelected').hide();
+            // Limpiar campos de pago
+            $('#paymentReceived').val('').focus();
+            $('#changeDisplay').hide();
+            $('#completeOrderBtn').prop('disabled', true);
+        }
+        
+        // Calcular cambio
+        function calculateChange() {
+            const total = parseFloat($('#totalAmount').text()) || 0;
+            const payment = parseFloat($('#paymentReceived').val()) || 0;
+            
+            if (payment >= total) {
+                const change = payment - total;
+                $('#changeAmount').text(change.toFixed(2));
+                $('#changeDisplay').show();
+                $('#completeOrderBtn').prop('disabled', false);
+            } else {
+                $('#changeDisplay').hide();
+                $('#completeOrderBtn').prop('disabled', true);
+            }
+        }
+        
+        // Completar orden
+        function completeOrder() {
+            if (!currentOrder) return;
+            
+            const total = parseFloat($('#totalAmount').text());
+            const payment = parseFloat($('#paymentReceived').val());
+            const change = payment - total;
+            
+            const saleData = {
+                order_id: currentOrder.id,
+                items: currentOrder.datos_pedido.items,
+                total: total,
+                payment_received: payment,
+                change: change
+            };
+            
+            $.ajax({
+                url: 'api/api_completarVenta.php',
+                method: 'POST',
+                data: JSON.stringify(saleData),
+                contentType: 'application/json',
+                success: function(response) {
+                    if (response.success) {
+                        showNotification('Venta completada exitosamente', 'success');
+                        
+                        // Limpiar sección de pago
+                        $('#paymentSection').hide();
+                        $('#noOrderSelected').show();
+                        currentOrder = null;
+                        
+                        // Recargar pedidos
+                        loadPendingOrders();
+                        loadStats();
+                    } else {
+                        showNotification('Error al completar la venta', 'error');
+                    }
+                },
+                error: function() {
+                    showNotification('Error de conexión', 'error');
+                }
+            });
+        }
+        
+        // Cargar estadísticas
+        function loadStats() {
+            $.ajax({
+                url: 'api/api_estadisticas.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(stats) {
+                    console.log(stats);
+                    $('#todayEarnings').text('$' + (stats.today?.ingresos_totales || '0.00'));
+                    $('#todayOrders').text(stats.today?.total_ventas || '0');
+                    $('#weeklyEarnings').text('$' + (stats.weekly?.reduce((sum, w) => sum + parseFloat(w.ingresos_totales || 0), 0).toFixed(2) || '0.00'));
+                    $('#monthlyEarnings').text('$' + (stats.monthly?.reduce((sum, m) => sum + parseFloat(m.ingresos_totales || 0), 0).toFixed(2) || '0.00'));
+                    
+                    // Mostrar últimas ventas
+                    displayRecentSales(stats.recent_sales || []);
+                },
+                error: function() {
+                    console.log('Error al cargar estadísticas');
+                }
+            });
+        }
+        
+        // Mostrar últimas ventas
+        function displayRecentSales(sales) {
+            let html = '';
+            if (sales.length === 0) {
+                html = '<tr><td colspan="7" class="text-center text-muted">No hay ventas recientes</td></tr>';
+            } else {
+                sales.forEach(function(sale) {
+                    const date = new Date(sale.fecha_venta).toLocaleString('es-ES');
+                    const statusClass = sale.estado === 'completado' ? 'bg-success' : 'bg-warning';
+                    html += `
+                        <tr>
+                            <td>#${sale.id}</td>
+                            <td>${date}</td>
+                            <td>${parseFloat(sale.total).toFixed(2)}</td>
+                            <td>${parseFloat(sale.pago_recibido).toFixed(2)}</td>
+                            <td>${parseFloat(sale.cambio).toFixed(2)}</td>
+                            <td><span class="badge ${statusClass}">${sale.estado}</span></td>
+                            <td><button class="btn btn-info btn-sm" onclick="showSaleDetail(${sale.id})">Ver más</button></td>
+                        </tr>
+                    `;
+                });
+            }
+            $('#recentSalesTable tbody').html(html);
+        }
+        
+        function showSaleDetail(saleId) {
+            // Obtener detalle de la venta por AJAX
+            $.ajax({
+                url: 'api/api_ventas.php?id=' + saleId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    let html = '';
+                    if (data.items && data.items.length > 0) {
+                        data.items.forEach(function(item) {
+                            let ingredientsHtml = '';
+                            if (item.ingredients && item.ingredients.length > 0) {
+                                const ingredientNames = item.ingredients.map(id => getIngredientName(id)).filter(name => name);
+                                if (ingredientNames.length > 0) {
+                                    ingredientsHtml = `<div class='ingredient-list'><small><strong>Extras:</strong> ${ingredientNames.join(', ')}</small></div>`;
+                                }
+                            }
+                            html += `
+                                <div class='order-item'>
+                                    <h6>${getProductName(item.product_id)}</h6>
+                                    <small>Cantidad: ${item.quantity}</small>
+                                    ${ingredientsHtml}
+                                    <div class='text-end'><strong>${parseFloat(item.total_price).toFixed(2)}</strong></div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        html = '<div class="text-muted">No hay productos en esta venta.</div>';
+                    }
+                    $('#saleDetailContent').html(html);
+                    $('#saleDetailModal').modal('show');
+                },
+                error: function() {
+                    $('#saleDetailContent').html('<div class="alert alert-danger">Error al cargar el detalle de la venta</div>');
+                    $('#saleDetailModal').modal('show');
+                }
+            });
+        }
+        
+        // Mostrar notificaciones
+        function showNotification(message, type) {
+            const alertClass = type === 'success' ? 'alert-success' : 
+                             type === 'error' ? 'alert-danger' : 'alert-info';
+            
+            const notification = $(`
+                <div class="alert ${alertClass} alert-dismissible fade show position-fixed" 
+                     style="top: 20px; right: 20px; z-index: 9999;">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `);
+            
+            $('body').append(notification);
+            
+            setTimeout(() => {
+                notification.alert('close');
+            }, 3000);
+        }
+        
+        // Limpiar interval al salir
+        $(window).on('beforeunload', function() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        });
+    </script>
+</body>
+</html>

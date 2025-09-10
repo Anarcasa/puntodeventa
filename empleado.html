@@ -366,9 +366,8 @@ let ingredientes = [];
             loadPendingOrders();
             loadStats();
             setupEventListeners();
-            
-            // Refrescar pedidos cada 10 segundos
-            refreshInterval = setInterval(loadPendingOrders, 10000);
+            // Refrescar pedidos cada 1 segundo
+            refreshInterval = setInterval(loadPendingOrders, 1000);
             
             // Verificar si hay un pedido específico en la URL
             const urlParams = new URLSearchParams(window.location.search);
@@ -501,6 +500,14 @@ let ingredientes = [];
                             </div>
                         `;
                     }
+                }
+                // Mostrar ingredientes base eliminados
+                if (item.removed && item.removed.length > 0) {
+                    ingredientsHtml += `
+                        <div class="ingredient-list">
+                            <small class="text-danger"><i class="fas fa-minus-circle"></i> <strong>Sin:</strong> ${item.removed.join(', ')}</small>
+                        </div>
+                    `;
                 }
                 detailsHtml += `
                     <div class="order-item">

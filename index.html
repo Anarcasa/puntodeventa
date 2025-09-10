@@ -1,527 +1,479 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Punto de Venta - Alimentos</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background: linear-gradient(135deg, #ffffff 0%, #797979 100%);
-        min-height: 100vh;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
 
-      .main-container {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        margin: 20px auto;
-        max-width: 1400px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Punto de Venta - Alimentos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffffff 0%, #797979 100%);
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-      .header {
-        background: linear-gradient(45deg, #6babff, #248cee);
-        color: white;
-        padding: 30px;
-        border-radius: 20px 20px 0 0;
-        text-align: center;
-      }
+    .main-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      margin: 20px auto;
+      max-width: 1400px;
+    }
 
-      .product-card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        margin-bottom: 20px;
-        overflow: hidden;
-      }
+    .header {
+      background: linear-gradient(45deg, #6babff, #248cee);
+      color: white;
+      padding: 30px;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+    }
 
-      .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-      }
+    .product-card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
 
-      .product-header {
-        background: linear-gradient(45deg, #d96c6c, #c94f2ab2);
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
 
-        color: white;
-        padding: 15px;
-        font-weight: bold;
-      }
+    .product-header {
+      background: linear-gradient(45deg, #d96c6c, #c94f2ab2);
 
-      .ingredient-group {
-        margin-bottom: 15px;
-      }
+      color: white;
+      padding: 15px;
+      font-weight: bold;
+    }
 
-      .ingredient-group h6 {
-        color: #2c3e50;
-        font-weight: bold;
-        margin-bottom: 10px;
-        padding: 5px 10px;
-        background: #ecf0f1;
-        border-radius: 8px;
-      }
+    .ingredient-group {
+      margin-bottom: 15px;
+    }
 
-      .form-check {
-        margin: 8px 0;
-        padding-left: 30px;
-      }
+    .ingredient-group h6 {
+      color: #2c3e50;
+      font-weight: bold;
+      margin-bottom: 10px;
+      padding: 5px 10px;
+      background: #ecf0f1;
+      border-radius: 8px;
+    }
 
-      .form-check-input:checked {
-        background-color: #ff6b6b;
-        border-color: #ff6b6b;
-      }
+    .form-check {
+      margin: 8px 0;
+      padding-left: 30px;
+    }
 
-      .price-badge {
-        background: linear-gradient(45deg, #ff9a9e, #fecfef);
-        color: #2c3e50;
-        font-weight: bold;
-        font-size: 1.1em;
-        padding: 8px 15px;
-        border-radius: 20px;
-        display: inline-block;
-        margin: 10px 0;
-      }
+    .form-check-input:checked {
+      background-color: #ff6b6b;
+      border-color: #ff6b6b;
+    }
 
-      .cart-section {
-        background: #f8f9fa;
-        border-radius: 15px;
-        padding: 20px;
-        position: sticky;
-        top: 20px;
-      }
+    .price-badge {
+      background: linear-gradient(45deg, #ff9a9e, #fecfef);
+      color: #2c3e50;
+      font-weight: bold;
+      font-size: 1.1em;
+      padding: 8px 15px;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 10px 0;
+    }
 
-      .cart-item {
-        background: white;
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
+    .cart-section {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 20px;
+      position: sticky;
+      top: 20px;
+    }
 
-      .btn-add-to-cart {
-        background-color: #4caf50; /* Verde jade */
-        color: #fff;
-        border: none;
-        color: white;
-        font-weight: bold;
-        padding: 10px 20px;
-        border-radius: 25px;
-        transition: all 0.3s ease;
-      }
+    .cart-item {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-      .btn-add-to-cart:hover {
-        background: linear-gradient(45deg, #4a9626, #96d9bb);
-        transform: scale(1.05);
-        color: white;
-      }
+    .btn-add-to-cart {
+      background-color: #4caf50;
+      /* Verde jade */
+      color: #fff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
 
-      .btn-checkout {
-        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-        border: none;
-        color: white;
-        font-weight: bold;
-        padding: 15px 30px;
-        border-radius: 25px;
-        font-size: 1.1em;
-        width: 100%;
-      }
+    .btn-add-to-cart:hover {
+      background: linear-gradient(45deg, #4a9626, #96d9bb);
+      transform: scale(1.05);
+      color: white;
+    }
 
-      .btn-checkout:hover {
-        background: linear-gradient(45deg, #ee5a24, #ff6b6b);
-        color: white;
-      }
+    .btn-checkout {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 1.1em;
+      width: 100%;
+    }
 
-      .quantity-controls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin: 10px 0;
-      }
+    .btn-checkout:hover {
+      background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+      color: white;
+    }
 
-      .quantity-btn {
-        background: #ff6b6b;
-        border: none;
-        color: white;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
 
-      .quantity-input {
-        width: 60px;
-        text-align: center;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        padding: 5px;
-      }
+    .quantity-btn {
+      background: #ff6b6b;
+      border: none;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      .total-display {
-        background: linear-gradient(45deg, #6babff, #248cee);
-        color: white;
-        color: white;
-        padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-        font-size: 1.3em;
-        font-weight: bold;
-        margin-bottom: 15px;
-      }
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 5px;
+    }
 
-      .category-tabs {
-        background: white;
-        border-radius: 15px;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
+    .total-display {
+      background: linear-gradient(45deg, #6babff, #248cee);
+      color: white;
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
 
-      .nav-pills .nav-link {
-        border-radius: 25px;
-        margin: 0 5px;
-        padding: 10px 20px;
-        border: 2px solid transparent;
-      }
+    .category-tabs {
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
 
-      .nav-pills .nav-link.active {
-        background: linear-gradient(45deg, #4491d8, #3a76f8);
-        border-color: #1b74da;
-      }
+    .nav-pills .nav-link {
+      border-radius: 25px;
+      margin: 0 5px;
+      padding: 10px 20px;
+      border: 2px solid transparent;
+    }
 
-      .empty-cart {
-        text-align: center;
-        color: #6c757d;
-        padding: 40px 20px;
-      }
+    .nav-pills .nav-link.active {
+      background: linear-gradient(45deg, #4491d8, #3a76f8);
+      border-color: #1b74da;
+    }
 
-      .loading {
-        display: none;
-        text-align: center;
-        padding: 20px;
-      }
-      .card {
-        border: none;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        border-radius: 15px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="main-container">
-        <!-- Header -->
-        <div class="header">
-          <h1>
-            <i class="fas fa-utensils"></i> Punto de Venta - Alimentos Frescos
-          </h1>
-          <p class="mb-0">Personaliza tu pedido como más te guste</p>
-        </div>
+    .empty-cart {
+      text-align: center;
+      color: #6c757d;
+      padding: 40px 20px;
+    }
 
-        <div class="row p-4">
-          <!-- Products Section -->
-          <div class="col-lg-8">
-            <!-- Category Tabs -->
-            <div class="category-tabs">
-              <ul
-                class="nav nav-pills justify-content-center"
-                id="categoryTabs"
-              >
-                <li class="nav-item">
-                  <a class="nav-link active" data-type="all" href="#">
-                    <i class="fas fa-th-large"></i> Todos
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-type="hamburguesa" href="#">
-                    <i class="fas fa-hamburger"></i> Hamburguesas
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-type="torta" href="#">
-                    <i class="fas fa-bread-slice"></i> Tortas
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-type="perro" href="#">
-                    <i class="fas fa-hotdog"></i> Perros
-                  </a>
-                </li>
-              </ul>
-            </div>
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
 
-            <!-- Products Container -->
-            <div id="productsContainer">
-              <div class="loading">
-                <i class="fas fa-spinner fa-spin fa-2x"></i>
-                <p>Cargando productos...</p>
-              </div>
-            </div>
-          </div>
+    .card {
+      border: none;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+  </style>
+</head>
 
-          <!-- Cart Section -->
-          <div class="col-lg-4">
-            <div class="card">
-              <div class="cart-section">
-                <h3 class="text-center mb-4">
-                  <i class="fas fa-shopping-cart"></i> Tu Pedido
-                </h3>
-
-                <div class="total-display">
-                  <div>Total: $<span id="cartTotal">0.00</span></div>
-                </div>
-
-                <div id="cartItems">
-                  <div class="empty-cart">
-                    <i class="fas fa-shopping-cart fa-3x mb-3"></i>
-                    <p>Tu carrito está vacío</p>
-                    <small class="text-muted"
-                      >Agrega productos para comenzar</small
-                    >
-                  </div>
-                </div>
-
-                <button class="btn btn-checkout" id="checkoutBtn" disabled>
-                  <i class="fas fa-credit-card"></i> Proceder al Pago
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+<body>
+  <div class="container-fluid">
+    <div class="main-container">
+      <!-- Header -->
+      <div class="header">
+        <h1>
+          <i class="fas fa-utensils"></i> LA LUPITA
+        </h1>
+        <p class="mb-0">Personaliza tu pedido como más te guste</p>
       </div>
-    </div>
 
-    <!-- Product Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalProductName"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+      <div class="row p-4">
+        <!-- Products Section -->
+        <div class="col-lg-8">
+          <!-- Category Tabs -->
+          <div class="category-tabs">
+            <ul class="nav nav-pills justify-content-center" id="categoryTabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-type="all" href="#">
+                  <i class="fas fa-th-large"></i> Todos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-type="hamburguesa" href="#">
+                  <i class="fas fa-hamburger"></i> Hamburguesas
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-type="torta" href="#">
+                  <i class="fas fa-bread-slice"></i> Tortas
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-type="perro" href="#">
+                  <i class="fas fa-hotdog"></i> Perros
+                </a>
+              </li>
+            </ul>
           </div>
-          <div class="modal-body">
-            <div id="modalProductContent"></div>
+
+          <!-- Products Container -->
+          <div id="productsContainer">
+            <div class="loading">
+              <i class="fas fa-spinner fa-spin fa-2x"></i>
+              <p>Cargando productos...</p>
+            </div>
           </div>
-          <div class="modal-footer">
-            <div class="w-100 text-center">
-              <div class="quantity-controls">
-                <button
-                  type="button"
-                  class="quantity-btn"
-                  onclick="decreaseQuantity()"
-                >
-                  <i class="fas fa-minus"></i>
-                </button>
-                <input
-                  type="number"
-                  class="quantity-input"
-                  id="modalQuantity"
-                  value="1"
-                  min="1"
-                />
-                <button
-                  type="button"
-                  class="quantity-btn"
-                  onclick="increaseQuantity()"
-                >
-                  <i class="fas fa-plus"></i>
-                </button>
+        </div>
+
+        <!-- Cart Section -->
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="cart-section">
+              <h3 class="text-center mb-4">
+                <i class="fas fa-shopping-cart"></i> Tu Pedido
+              </h3>
+
+              <div class="total-display">
+                <div>Total: $<span id="cartTotal">0.00</span></div>
               </div>
-              <div class="price-badge">
-                Precio: $<span id="modalPrice">0.00</span>
+
+              <div id="cartItems">
+                <div class="empty-cart">
+                  <i class="fas fa-shopping-cart fa-3x mb-3"></i>
+                  <p>Tu carrito está vacío</p>
+                  <small class="text-muted">Agrega productos para comenzar</small>
+                </div>
               </div>
-              <button
-                type="button"
-                class="btn btn-add-to-cart"
-                onclick="addToCart()"
-              >
-                <i class="fas fa-plus"></i> Agregar al Carrito
+
+              <button class="btn btn-checkout" id="checkoutBtn" disabled>
+                <i class="fas fa-credit-card"></i> Proceder al Pago
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Checkout Modal -->
-    <div class="modal fade" id="checkoutModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Finalizar Pedido</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="alert alert-info">
-              <i class="fas fa-info-circle"></i>
-              <strong
-                >Total a pagar: $<span id="checkoutTotal">0.00</span></strong
-              >
+  <!-- Product Modal -->
+  <div class="modal fade" id="productModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalProductName"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div id="modalProductContent"></div>
+        </div>
+        <div class="modal-footer">
+          <div class="w-100 text-center">
+            <div class="quantity-controls">
+              <button type="button" class="quantity-btn" onclick="decreaseQuantity()">
+                <i class="fas fa-minus"></i>
+              </button>
+              <input type="number" class="quantity-input" id="modalQuantity" value="1" min="1" />
+              <button type="button" class="quantity-btn" onclick="increaseQuantity()">
+                <i class="fas fa-plus"></i>
+              </button>
             </div>
-            <p>Tu pedido ha sido enviado al empleado para procesar el pago.</p>
-            <div id="orderSummary"></div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
-            <button
-              type="button"
-              class="btn btn-success"
-              onclick="confirmOrder()"
-            >
-              <i class="fas fa-check"></i> Confirmar Pedido
+            <div class="price-badge">
+              Precio: $<span id="modalPrice">0.00</span>
+            </div>
+            <button type="button" class="btn btn-add-to-cart" onclick="addToCart()">
+              <i class="fas fa-plus"></i> Agregar al Carrito
             </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Checkout Modal -->
+  <div class="modal fade" id="checkoutModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Finalizar Pedido</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            <strong>Total a pagar: $<span id="checkoutTotal">0.00</span></strong>
+          </div>
+          <p>Tu pedido será enviado al empleado para procesar la orden.</p>
+          <div id="orderSummary"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+          <button type="button" class="btn btn-success" onclick="confirmOrder()">
+            <i class="fas fa-check"></i> Confirmar Pedido
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-      let products = [];
-      let ingredients = [];
-      let cart = [];
-      let currentProduct = null;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-      // Inicializar la aplicación
-      $(document).ready(function () {
-        loadProducts();
-        loadIngredients();
-        setupEventListeners();
+  <script>
+    let products = [];
+    let ingredients = [];
+    let cart = [];
+    let currentProduct = null;
+
+    // Inicializar la aplicación
+    $(document).ready(function () {
+      loadProducts();
+      loadIngredients();
+      setupEventListeners();
+    });
+
+    // Configurar event listeners
+    function setupEventListeners() {
+      // Tabs de categorías
+      $("#categoryTabs .nav-link").click(function (e) {
+        e.preventDefault();
+        $("#categoryTabs .nav-link").removeClass("active");
+        $(this).addClass("active");
+
+        const type = $(this).data("type");
+        filterProducts(type);
       });
 
-      // Configurar event listeners
-      function setupEventListeners() {
-        // Tabs de categorías
-        $("#categoryTabs .nav-link").click(function (e) {
-          e.preventDefault();
-          $("#categoryTabs .nav-link").removeClass("active");
-          $(this).addClass("active");
+      // Checkout button
+      $("#checkoutBtn").click(function () {
+        if (cart.length > 0) {
+          showCheckoutModal();
+        }
+      });
+    }
 
-          const type = $(this).data("type");
-          filterProducts(type);
-        });
+    // Cargar productos desde el servidor
+    function loadProducts() {
+      $(".loading").show();
 
-        // Checkout button
-        $("#checkoutBtn").click(function () {
-          if (cart.length > 0) {
-            showCheckoutModal();
-          }
-        });
-      }
+      $.ajax({
+        url: "api/api_productos.php",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+          products = data;
+          displayProducts(products);
+          console.log(products);
 
-      // Cargar productos desde el servidor
-      function loadProducts() {
-        $(".loading").show();
+          $(".loading").hide();
+        },
+        error: function () {
+          $(".loading").hide();
+          $("#productsContainer").html(
+            '<div class="alert alert-danger">Error al cargar productos</div>'
+          );
+        },
+      });
+    }
 
-        $.ajax({
-          url: "api/api_productos.php",
-          method: "GET",
-          dataType: "json",
-          success: function (data) {
-            products = data;
-            displayProducts(products);
-            console.log(products);
+    // Cargar ingredientes
+    function loadIngredients() {
+      $.ajax({
+        url: "api/api_ingredientes.php",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+          ingredients = data;
+        },
+        error: function () {
+          console.log("Error al cargar ingredientes");
+        },
+      });
+    }
 
-            $(".loading").hide();
-          },
-          error: function () {
-            $(".loading").hide();
-            $("#productsContainer").html(
-              '<div class="alert alert-danger">Error al cargar productos</div>'
-            );
-          },
-        });
-      }
+    // Mostrar productos
+    function displayProducts(productsToShow) {
+      let html = "";
 
-      // Cargar ingredientes
-      function loadIngredients() {
-        $.ajax({
-          url: "api/api_ingredientes.php",
-          method: "GET",
-          dataType: "json",
-          success: function (data) {
-            ingredients = data;
-          },
-          error: function () {
-            console.log("Error al cargar ingredientes");
-          },
-        });
-      }
-
-      // Mostrar productos
-      function displayProducts(productsToShow) {
-        let html = "";
-
-        if (productsToShow.length === 0) {
-          html =
-            '<div class="alert alert-warning">No se encontraron productos</div>';
-        } else {
-          productsToShow.forEach(function (product) {
-            html += `
-                        <div class="product-card card" data-type="${
-                          product.tipo
-                        }">
+      if (productsToShow.length === 0) {
+        html =
+          '<div class="alert alert-warning">No se encontraron productos</div>';
+      } else {
+        productsToShow.forEach(function (product) {
+          html += `
+                        <div class="product-card card" data-type="${product.tipo
+            }">
                             <div class="product-header">
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <h5 class="mb-0">${product.nombre}</h5>
-                                        <small class="opacity-75">${
-                                          product.categoria
-                                            .charAt(0)
-                                            .toUpperCase() +
-                                          product.categoria.slice(1)
-                                        }</small>
+                                        <small class="opacity-75">${product.categoria
+              .charAt(0)
+              .toUpperCase() +
+            product.categoria.slice(1)
+            }</small>
                                     </div>
                                     <div class="col-auto">
                                         <span class="badge bg-light text-dark">${parseFloat(
-                                          product.precio_base
-                                        ).toFixed(2)}</span>
+              product.precio_base
+            ).toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <p class="card-text mb-3">${
-                                  product.descripcion
-                                }</p>
+                                <p class="card-text mb-3">${product.descripcion
+            }</p>
                                 <div class="mb-3">
                                     <small class="text-muted">
-                                        <i class="fas fa-list"></i> <strong>Incluye:</strong> ${
-                                          product.ingredientes_base
-                                        }
+                                        <i class="fas fa-list"></i> <strong>Incluye:</strong> ${product.ingredientes_base
+            }
                                     </small>
                                 </div>
                                 <div class="row d-flex justify-content-center align-items-center">
-                                    <button class="btn btn-add-to-cart w-50 " onclick="selectProduct(${
-                                  product.id
-                                })">
+                                    <button class="btn btn-add-to-cart w-50 " onclick="selectProduct(${product.id
+            })">
                                  <i class="fas fa-plus"></i> Personalizar y Agregar
                                 </div>
                                 
@@ -530,310 +482,364 @@
                             </div>
                         </div>
                     `;
-          });
-        }
-
-        $("#productsContainer").html(html);
-      }
-
-      // Filtrar productos por tipo
-      function filterProducts(type) {
-        if (type === "all") {
-          displayProducts(products);
-        } else {
-          const filtered = products.filter((product) => product.tipo === type);
-          displayProducts(filtered);
-        }
-      }
-
-      // Seleccionar producto para personalizar
-      function selectProduct(productId) {
-        currentProduct = products.find((p) => p.id == productId);
-        if (!currentProduct) return;
-
-        $("#modalProductName").text(currentProduct.nombre);
-        $("#modalQuantity").val(1);
-
-        generateIngredientOptions();
-        updateModalPrice();
-
-        $("#productModal").modal("show");
-      }
-
-      // Generar opciones de ingredientes
-      function generateIngredientOptions() {
-        let html = `
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        <h6><i class="fas fa-info-circle"></i> Descripción</h6>
-                        <p class="text-muted">${currentProduct.descripcion}</p>
-                        <p><small><strong>Incluye:</strong> ${currentProduct.ingredientes_base}</small></p>
-                    </div>
-                </div>
-                <div class="row">
-            `;
-
-        // Agrupar ingredientes por tipo
-        const groupedIngredients = {};
-        ingredients.forEach((ingredient) => {
-          if (!groupedIngredients[ingredient.tipo]) {
-            groupedIngredients[ingredient.tipo] = [];
-          }
-          groupedIngredients[ingredient.tipo].push(ingredient);
         });
+      }
 
-        // Mostrar cada grupo de ingredientes
-        Object.keys(groupedIngredients).forEach((tipo) => {
+      $("#productsContainer").html(html);
+    }
+
+    // Filtrar productos por tipo
+    function filterProducts(type) {
+      if (type === "all") {
+        displayProducts(products);
+      } else {
+        const filtered = products.filter((product) => product.tipo === type);
+        displayProducts(filtered);
+      }
+    }
+
+    // Seleccionar producto para personalizar
+    function selectProduct(productId) {
+      currentProduct = products.find((p) => p.id == productId);
+      if (!currentProduct) return;
+
+      $("#modalProductName").text(currentProduct.nombre);
+      $("#modalQuantity").val(1);
+
+      generateIngredientOptions();
+      updateModalPrice();
+
+      $("#productModal").modal("show");
+    }
+
+    // Generar opciones de ingredientes
+    function generateIngredientOptions() {
+      let html = `
+    <div class="row">
+      <div class="col-12 mb-3">
+        <h6><i class="fas fa-info-circle"></i> Descripción</h6>
+        <p class="text-muted">${currentProduct.descripcion}</p>
+        <p><small><strong>Incluye:</strong> ${currentProduct.ingredientes_base}</small></p>
+      </div>
+    </div>
+    <div class="row">
+  `;
+
+      // Ingredientes base como checkboxes marcados
+      const baseIngredients = currentProduct.ingredientes_base
+        .split(",")
+        .map(i => i.trim())
+        .filter(i => i.length > 0);
+
+      html += `
+    <div class="col-md-6">
+      <div class="ingredient-group">
+        <h6><i class="fas fa-minus-circle"></i> Quitar Ingredientes Base</h6>
+  `;
+      baseIngredients.forEach((ing, idx) => {
+        html += `
+      <div class="form-check">
+        <input class="form-check-input base-ingredient-checkbox"
+               type="checkbox"
+               value="${ing}"
+               id="base_ing_${idx}"
+               checked
+               onchange="updateModalPrice()">
+        <label class="form-check-label" for="base_ing_${idx}">
+          ${ing}
+        </label>
+      </div>
+    `;
+      });
+      html += "</div></div>";
+
+      // Agrupar ingredientes extra por tipo
+      const groupedIngredients = {};
+      ingredients.forEach((ingredient) => {
+        if (!groupedIngredients[ingredient.tipo]) {
+          groupedIngredients[ingredient.tipo] = [];
+        }
+        groupedIngredients[ingredient.tipo].push(ingredient);
+      });
+
+      // Mostrar cada grupo de ingredientes extra
+      Object.keys(groupedIngredients).forEach((tipo) => {
+        html += `
+      <div class="col-md-6">
+        <div class="ingredient-group">
+          <h6><i class="fas fa-plus"></i> ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}s Extra</h6>
+    `;
+        groupedIngredients[tipo].forEach((ingredient) => {
+          const extraCost =
+            parseFloat(ingredient.precio_extra) > 0
+              ? ` (+${parseFloat(ingredient.precio_extra).toFixed(2)})`
+              : "";
           html += `
-                    <div class="col-md-6">
-                        <div class="ingredient-group">
-                            <h6><i class="fas fa-plus"></i> ${
-                              tipo.charAt(0).toUpperCase() + tipo.slice(1)
-                            }s Extra</h6>
-                `;
-
-          groupedIngredients[tipo].forEach((ingredient) => {
-            const extraCost =
-              parseFloat(ingredient.precio_extra) > 0
-                ? ` (+${parseFloat(ingredient.precio_extra).toFixed(2)})`
-                : "";
-
-            html += `
-                        <div class="form-check">
-                            <input class="form-check-input ingredient-checkbox" 
-                                   type="checkbox" 
-                                   value="${ingredient.id}" 
-                                   id="ingredient_${ingredient.id}"
-                                   onchange="updateModalPrice()">
-                            <label class="form-check-label" for="ingredient_${ingredient.id}">
-                                ${ingredient.nombre}${extraCost}
-                            </label>
-                        </div>
-                    `;
-          });
-
-          html += "</div></div>";
+        <div class="form-check">
+          <input class="form-check-input ingredient-checkbox"
+                 type="checkbox"
+                 value="${ingredient.id}"
+                 id="ingredient_${ingredient.id}"
+                 onchange="updateModalPrice()">
+          <label class="form-check-label" for="ingredient_${ingredient.id}">
+            ${ingredient.nombre}${extraCost}
+          </label>
+        </div>
+      `;
         });
+        html += "</div></div>";
+      });
 
-        html += "</div>";
+      html += "</div>";
 
-        $("#modalProductContent").html(html);
-      }
+      $("#modalProductContent").html(html);
+    }
 
-      // Actualizar precio en el modal
-      function updateModalPrice() {
-        let price = parseFloat(currentProduct.precio_base);
+    // Actualizar precio en el modal
+    function updateModalPrice() {
+      let price = parseFloat(currentProduct.precio_base);
 
-        $(".ingredient-checkbox:checked").each(function () {
-          const ingredientId = $(this).val();
-          const ingredient = ingredients.find((i) => i.id == ingredientId);
-          if (ingredient) {
-            price += parseFloat(ingredient.precio_extra);
-          }
-        });
+      $(".ingredient-checkbox:checked").each(function () {
+        const ingredientId = $(this).val();
+        const ingredient = ingredients.find((i) => i.id == ingredientId);
+        if (ingredient) {
+          price += parseFloat(ingredient.precio_extra);
+        }
+      });
 
-        const quantity = parseInt($("#modalQuantity").val()) || 1;
-        const totalPrice = price * quantity;
+      const quantity = parseInt($("#modalQuantity").val()) || 1;
+      const totalPrice = price * quantity;
 
-        $("#modalPrice").text(totalPrice.toFixed(2));
-      }
+      $("#modalPrice").text(totalPrice.toFixed(2));
+    }
 
-      // Controles de cantidad
-      function increaseQuantity() {
-        const current = parseInt($("#modalQuantity").val()) || 1;
-        $("#modalQuantity").val(current + 1);
+    // Controles de cantidad
+    function increaseQuantity() {
+      const current = parseInt($("#modalQuantity").val()) || 1;
+      $("#modalQuantity").val(current + 1);
+      updateModalPrice();
+    }
+
+    function decreaseQuantity() {
+      const current = parseInt($("#modalQuantity").val()) || 1;
+      if (current > 1) {
+        $("#modalQuantity").val(current - 1);
         updateModalPrice();
       }
+    }
 
-      function decreaseQuantity() {
-        const current = parseInt($("#modalQuantity").val()) || 1;
-        if (current > 1) {
-          $("#modalQuantity").val(current - 1);
-          updateModalPrice();
+    // Agregar al carrito
+
+    function areArraysEqual(arr1, arr2) {
+      if (arr1.length !== arr2.length) return false;
+      const a1 = [...arr1].sort();
+      const a2 = [...arr2].sort();
+      return a1.every((v, i) => v === a2[i]);
+    }
+
+    function addToCart() {
+      const quantity = parseInt($("#modalQuantity").val()) || 1;
+      const selectedIngredients = [];
+      const removedBaseIngredients = [];
+
+      // Ingredientes extra seleccionados
+      $(".ingredient-checkbox:checked").each(function () {
+        const ingredientId = $(this).val();
+        const ingredient = ingredients.find((i) => i.id == ingredientId);
+        if (ingredient) {
+          selectedIngredients.push(ingredient);
         }
-      }
+      });
 
-      // Agregar al carrito
-      function addToCart() {
-        const quantity = parseInt($("#modalQuantity").val()) || 1;
-        const selectedIngredients = [];
+      // Ingredientes base desmarcados (eliminados)
+      $(".base-ingredient-checkbox").each(function () {
+        if (!$(this).is(":checked")) {
+          removedBaseIngredients.push($(this).val());
+        }
+      });
 
-        $(".ingredient-checkbox:checked").each(function () {
-          const ingredientId = $(this).val();
-          const ingredient = ingredients.find((i) => i.id == ingredientId);
-          if (ingredient) {
-            selectedIngredients.push(ingredient);
-          }
-        });
+      let price = parseFloat(currentProduct.precio_base);
+      selectedIngredients.forEach((ingredient) => {
+        price += parseFloat(ingredient.precio_extra);
+      });
 
-        let price = parseFloat(currentProduct.precio_base);
-        selectedIngredients.forEach((ingredient) => {
-          price += parseFloat(ingredient.precio_extra);
-        });
+      // Buscar si ya existe un producto igual en el carrito
+      const existing = cart.find(item =>
+        item.product.id === currentProduct.id &&
+        areArraysEqual(item.ingredients.map(i => i.id), selectedIngredients.map(i => i.id)) &&
+        areArraysEqual(item.removedBase, removedBaseIngredients)
+      );
 
+      if (existing) {
+        // Si existe, solo suma la cantidad y el precio total
+        existing.quantity += quantity;
+        existing.totalPrice = existing.unitPrice * existing.quantity;
+      } else {
+        // Si no existe, agrega uno nuevo
         const cartItem = {
-          id: Date.now(), // ID único para el carrito
+          id: Date.now(),
           product: currentProduct,
           quantity: quantity,
           ingredients: selectedIngredients,
+          removedBase: removedBaseIngredients,
           unitPrice: price,
           totalPrice: price * quantity,
         };
-
         cart.push(cartItem);
-        updateCartDisplay();
-
-        $("#productModal").modal("hide");
-
-        // Mostrar notificación
-        showNotification("Producto agregado al carrito", "success");
       }
 
-      // Actualizar visualización del carrito
-      function updateCartDisplay() {
-        if (cart.length === 0) {
-          $("#cartItems").html(`
+      updateCartDisplay();
+      $("#productModal").modal("hide");
+      showNotification("Producto agregado al carrito", "success");
+    }
+
+    // Actualizar visualización del carrito
+    function updateCartDisplay() {
+      if (cart.length === 0) {
+        $("#cartItems").html(`
                     <div class="empty-cart">
                         <i class="fas fa-shopping-cart fa-3x mb-3"></i>
                         <p>Tu carrito está vacío</p>
                         <small class="text-muted">Agrega productos para comenzar</small>
                     </div>
                 `);
-          $("#checkoutBtn").prop("disabled", true);
-          $("#cartTotal").text("0.00");
-          return;
+        $("#checkoutBtn").prop("disabled", true);
+        $("#cartTotal").text("0.00");
+        return;
+      }
+
+      let html = "";
+      let total = 0;
+
+      cart.forEach(function (item) {
+        total += item.totalPrice;
+
+        let ingredientsList = "";
+        if (item.ingredients.length > 0) {
+          ingredientsList =
+            '<br><small class="text-muted">+ ' +
+            item.ingredients.map((i) => i.nombre).join(", ") +
+            "</small>";
         }
 
-        let html = "";
-        let total = 0;
-
-        cart.forEach(function (item) {
-          total += item.totalPrice;
-
-          let ingredientsList = "";
-          if (item.ingredients.length > 0) {
-            ingredientsList =
-              '<br><small class="text-muted">+ ' +
-              item.ingredients.map((i) => i.nombre).join(", ") +
-              "</small>";
-          }
-
-          html += `
+        html += `
                     <div class="cart-item">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="flex-grow-1">
                                 <h6 class="mb-1">${item.product.nombre}</h6>
-                                <small class="text-muted">Cantidad: ${
-                                  item.quantity
-                                }</small>
+                                <small class="text-muted">Cantidad: ${item.quantity
+          }</small>
                                 ${ingredientsList}
                             </div>
                             <div class="text-end">
                                 <strong>${item.totalPrice.toFixed(2)}</strong>
                                 <br>
-                                <button class="btn btn-sm btn-outline-danger mt-1" onclick="removeFromCart(${
-                                  item.id
-                                })">
+                                <button class="btn btn-sm btn-outline-danger mt-1" onclick="removeFromCart(${item.id
+          })">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                 `;
-        });
+      });
 
-        $("#cartItems").html(html);
-        $("#cartTotal").text(total.toFixed(2));
-        $("#checkoutBtn").prop("disabled", false);
-      }
+      $("#cartItems").html(html);
+      $("#cartTotal").text(total.toFixed(2));
+      $("#checkoutBtn").prop("disabled", false);
+    }
 
-      // Remover del carrito
-      function removeFromCart(cartItemId) {
-        cart = cart.filter((item) => item.id !== cartItemId);
-        updateCartDisplay();
-        showNotification("Producto eliminado del carrito", "info");
-      }
+    // Remover del carrito
+    function removeFromCart(cartItemId) {
+      cart = cart.filter((item) => item.id !== cartItemId);
+      updateCartDisplay();
+      showNotification("Producto eliminado del carrito", "info");
+    }
 
-      // Mostrar modal de checkout
-      function showCheckoutModal() {
-        const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-        $("#checkoutTotal").text(total.toFixed(2));
+    // Mostrar modal de checkout
+    function showCheckoutModal() {
+      const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+      $("#checkoutTotal").text(total.toFixed(2));
 
-        let summaryHtml = "<h6>Resumen del pedido:</h6>";
-        cart.forEach(function (item) {
-          let ingredientsList = "";
-          if (item.ingredients.length > 0) {
-            ingredientsList =
-              '<br><small class="text-muted">Extras: ' +
-              item.ingredients.map((i) => i.nombre).join(", ") +
-              "</small>";
+      let summaryHtml = "<h6>Resumen del pedido:</h6>";
+      cart.forEach(function (item) {
+        let ingredientsList = "";
+        if (item.ingredients.length > 0) {
+          ingredientsList +=
+            '<br><small class="text-muted">Extras: ' +
+            item.ingredients.map((i) => i.nombre).join(", ") +
+            "</small>";
+        }
+        if (item.removedBase && item.removedBase.length > 0) {
+          ingredientsList +=
+            '<br><small class="text-danger">Sin: ' +
+            item.removedBase.join(", ") +
+            "</small>";
+        }
+
+        summaryHtml += `
+      <div class="border-bottom pb-2 mb-2">
+        <strong>${item.product.nombre}</strong> x${item.quantity}
+        ${ingredientsList}
+        <div class="text-end"><strong>${item.totalPrice.toFixed(2)}</strong></div>
+      </div>
+    `;
+      });
+
+      $("#orderSummary").html(summaryHtml);
+      $("#checkoutModal").modal("show");
+    }
+
+    // Confirmar pedido
+    function confirmOrder() {
+      const orderData = {
+        items: cart.map((item) => ({
+          product_id: item.product.id,
+          quantity: item.quantity,
+          unit_price: item.unitPrice,
+          total_price: item.totalPrice,
+          ingredients: item.ingredients.map((i) => i.id),
+          removed: item.removedBase, // <-- aquí se envían los eliminados
+        })),
+        total: cart.reduce((sum, item) => sum + item.totalPrice, 0),
+      };
+
+
+      // Enviar pedido al empleado
+      $.ajax({
+        url: "api/api_pedidos.php",
+        method: "POST",
+        data: JSON.stringify(orderData),
+        contentType: "application/json",
+        success: function (response) {
+          if (response.success) {
+            showNotification("Pedido enviado exitosamente", "success");
+
+            // Limpiar carrito
+            cart = [];
+            updateCartDisplay();
+
+            $("#checkoutModal").modal("hide");
+          } else {
+            showNotification("Error al procesar el pedido", "error");
           }
+        },
+        error: function () {
+          showNotification("Error de conexión", "error");
+        },
+      });
+    }
 
-          summaryHtml += `
-                    <div class="border-bottom pb-2 mb-2">
-                        <strong>${item.product.nombre}</strong> x${
-            item.quantity
-          }
-                        ${ingredientsList}
-                        <div class="text-end"><strong>${item.totalPrice.toFixed(
-                          2
-                        )}</strong></div>
-                    </div>
-                `;
-        });
-
-        $("#orderSummary").html(summaryHtml);
-        $("#checkoutModal").modal("show");
-      }
-
-      // Confirmar pedido
-      function confirmOrder() {
-        const orderData = {
-          items: cart.map((item) => ({
-            product_id: item.product.id,
-            quantity: item.quantity,
-            unit_price: item.unitPrice,
-            total_price: item.totalPrice,
-            ingredients: item.ingredients.map((i) => i.id),
-          })),
-          total: cart.reduce((sum, item) => sum + item.totalPrice, 0),
-        };
-
-        // Enviar pedido al empleado
-        $.ajax({
-          url: "api/api_pedidos.php",
-          method: "POST",
-          data: JSON.stringify(orderData),
-          contentType: "application/json",
-          success: function (response) {
-            if (response.success) {
-              showNotification("Pedido enviado exitosamente", "success");
-
-              // Limpiar carrito
-              cart = [];
-              updateCartDisplay();
-
-              $("#checkoutModal").modal("hide");
-            } else {
-              showNotification("Error al procesar el pedido", "error");
-            }
-          },
-          error: function () {
-            showNotification("Error de conexión", "error");
-          },
-        });
-      }
-
-      // Mostrar notificaciones
-      function showNotification(message, type) {
-        const alertClass =
-          type === "success"
-            ? "alert-success"
-            : type === "error"
+    // Mostrar notificaciones
+    function showNotification(message, type) {
+      const alertClass =
+        type === "success"
+          ? "alert-success"
+          : type === "error"
             ? "alert-danger"
             : "alert-info";
 
-        const notification = $(`
+      const notification = $(`
                 <div class="alert ${alertClass} alert-dismissible fade show position-fixed" 
                      style="top: 20px; right: 20px; z-index: 9999;">
                     ${message}
@@ -841,17 +847,18 @@
                 </div>
             `);
 
-        $("body").append(notification);
+      $("body").append(notification);
 
-        setTimeout(() => {
-          notification.alert("close");
-        }, 3000);
-      }
+      setTimeout(() => {
+        notification.alert("close");
+      }, 3000);
+    }
 
-      // Actualizar cantidad en el modal
-      $("#modalQuantity").on("input", function () {
-        updateModalPrice();
-      });
-    </script>
-  </body>
+    // Actualizar cantidad en el modal
+    $("#modalQuantity").on("input", function () {
+      updateModalPrice();
+    });
+  </script>
+</body>
+
 </html>
